@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>LegitHire</title>
+  <style>
+    :root { color-scheme: light dark; --fg: #1f1f1f; --muted: #5f6368; --bg: #fff; --line: #e3e3e3; --accent: #0a66c2; --chip: #f1f3f4; }
+    @media (prefers-color-scheme: dark) { :root { --fg: #e8eaed; --muted: #9aa0a6; --bg: #202124; --line: #3c4043; --accent: #71b7fb; --chip: #2d2e31; } }
+    body { margin: 0; width: 300px; font: 13px/1.4 -apple-system, system-ui, "Segoe UI", Roboto, sans-serif; color: var(--fg); background: var(--bg); }
+    header { padding: 12px 14px 8px; border-bottom: 1px solid var(--line); }
+    h1 { margin: 0; font-size: 15px; }
+    h2 { margin: 0 0 6px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+    header p { margin: 2px 0 0; color: var(--muted); font-size: 12px; }
+    label { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 9px 14px; border-bottom: 1px solid var(--line); cursor: pointer; }
+    label small { display: block; color: var(--muted); font-size: 11.5px; }
+    input { accent-color: var(--accent); width: 16px; height: 16px; flex: none; }
+    section { padding: 10px 14px; border-bottom: 1px solid var(--line); }
+    ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr auto; gap: 3px 10px; }
+    li { display: contents; }
+    li span:last-child { font-variant-numeric: tabular-nums; text-align: right; }
+    .empty { color: var(--muted); }
+    .actions { display: grid; gap: 6px; }
+    button { font: inherit; padding: 6px 10px; border-radius: 6px; border: 1px solid var(--line); background: var(--chip); color: var(--fg); cursor: pointer; text-align: left; display: flex; justify-content: space-between; }
+    button:disabled { opacity: .5; cursor: default; }
+    button:focus-visible, input:focus-visible { outline: 2px solid var(--accent); outline-offset: 1px; }
+    footer { padding: 10px 14px; color: var(--muted); font-size: 11.5px; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>LegitHire</h1>
+    <p>Runs on your device. Nothing leaves the browser.</p>
+  </header>
+  <label><span>Label hiring posts</span><input type="checkbox" data-key="enabled"></label>
+  <label><span>Hide "Not a Hiring Post" labels</span><input type="checkbox" data-key="hideNotHiring"></label>
+  <label><span>Debug mode<small>Logs what it reads from each post to the page console</small></span><input type="checkbox" data-key="debug"></label>
+  <label><span>Dataset mode<small>Adds "Save to dataset" to labels. Text is saved with names, profile links, emails and phone numbers removed.</small></span><input type="checkbox" data-key="datasetMode"></label>
+  <section>
+    <h2>Seen today</h2>
+    <ul id="stats"></ul>
+  </section>
+  <section class="actions">
+    <h2>Export (JSONL)</h2>
+    <button id="export-feedback" type="button"><span>Export feedback</span><span id="n-feedback">0</span></button>
+    <button id="export-dataset" type="button"><span>Export dataset</span><span id="n-dataset">0</span></button>
+  </section>
+  <footer>Changes apply to open LinkedIn tabs right away.</footer>
+  <script src="popup.js"></script>
+</body>
+</html>

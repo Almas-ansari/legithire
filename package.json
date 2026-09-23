@@ -1,0 +1,47 @@
+{
+  "name": "legithire",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Labels hiring posts in the LinkedIn feed (real opening, crowded, bait, scam), entirely on-device.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build.mjs",
+    "watch": "node scripts/build.mjs --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "fetch-model": "node scripts/fetch-model.mjs",
+    "e2e": "node scripts/e2e.mjs",
+    "eval": "tsx scripts/eval.ts",
+    "build:safari": "node scripts/build.mjs --target safari",
+    "safari:xcode": "sh safari/create-xcode-project.sh"
+  },
+  "devDependencies": {
+    "@types/chrome": "^0.3.0",
+    "@types/node": "^26.6.2",
+    "esbuild": "^0.28.2",
+    "jsdom": "^29.1.1",
+    "puppeteer-core": "^25.12.0",
+    "tsx": "^4.23.15",
+    "typescript": "^7.0.2",
+    "vitest": "^4.1.11"
+  },
+  "dependencies": {
+    "@huggingface/transformers": "^4.3.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Almas-ansari/legithire.git"
+  },
+  "keywords": [
+    "browser-extension",
+    "chrome-extension",
+    "safari-extension",
+    "linkedin",
+    "job-search",
+    "scam-detection",
+    "transformers.js",
+    "on-device"
+  ]
+}

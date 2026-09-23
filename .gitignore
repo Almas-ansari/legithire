@@ -1,0 +1,10 @@
+node_modules/
+dist/
+models/
+*.log
+.DS_Store
+/Screenshot*.png
+/e2e*.png
+data/.model-scores.json
+safari/extension/
+safari/build/
