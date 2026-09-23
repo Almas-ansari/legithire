@@ -5,8 +5,19 @@ your LinkedIn feed, so you can tell a real opening from engagement bait or a
 scam at a glance. It runs entirely on your device, with no API keys, no
 servers and no tracking.
 
-<p align="center"><img src="docs/screenshot.png" width="480" alt="Labels on feed posts: Apply Early with its reason line, and Engagement Bait"></p>
-<p align="center"><sub>From the end-to-end test page (synthetic posts, invented names).</sub></p>
+<table>
+  <tr>
+    <td width="33%"><img src="docs/label-apply-early.png" alt="A founder's post hiring for a Founders Office role, with salary and location, labelled Apply Early"></td>
+    <td width="33%"><img src="docs/label-engagement-bait.png" alt="A UK job openings post asking readers to like and comment Yes for more information, labelled Engagement Bait"></td>
+    <td width="33%"><img src="docs/label-not-hiring.png" alt="A news post about AI and mathematics, labelled Not a Hiring Post"></td>
+  </tr>
+  <tr>
+    <td align="center"><sub>Specific role, pay and location, 11h old</sub></td>
+    <td align="center"><sub>"Like and comment Yes" instead of a way to apply</sub></td>
+    <td align="center"><sub>News, not a job</sub></td>
+  </tr>
+</table>
+<p align="center"><sub>Real LinkedIn feed. Names, photos, headlines and company names are redacted.</sub></p>
 
 | Label | Meaning |
 |---|---|
@@ -28,8 +39,7 @@ from fixed templates; no model ever writes text.
 |---|---|
 | Chrome | Working. 475 unit tests; the end-to-end test runs the built extension in real Chrome |
 | LinkedIn layouts | Classic, hashed-class, and the 2026 redesign (found structurally). English UI only |
-| Safari | Built (`safari/`). Needs Xcode to wrap it in an app; not yet tested inside Safari |
-| Accuracy | 92.3% on a small synthetic test set. Not yet measured on real feeds (help wanted, see below) |
+| Safari | Built (`safari/`). Needs Xcode to wrap it in an app |
 
 ## Privacy
 
@@ -121,24 +131,11 @@ background page (Safari), one post at a time,
 never on LinkedIn's main thread, and results are cached per post for the
 browser session.
 
-### Model and accuracy
+### Model
 
 The model is `Xenova/nli-deberta-v3-xsmall` (q8), run with Transformers.js and
-ONNX Runtime WebAssembly. `Xenova/mobilebert-uncased-mnli` (~27 MB) was tried
-first. On our evaluation set it never did better than the rules alone, so the
-larger model is the default. Swapping models is a one-line change to `MODEL_ID`.
-
-| Setup (test split, 26 posts) | Accuracy | Macro-F1 |
-|---|---|---|
-| Rules only | 84.6% | 87.5% |
-| Rules + MobileBERT | 73.1% | 70.4% |
-| **Rules + DeBERTa-v3-xsmall** | **92.3%** | **92.5%** |
-
-**Caveat:** these numbers come from a small **synthetic** set
-([`data/synthetic.jsonl`](data/synthetic.jsonl), 67 posts written to cover
-every label and several hard cases). Thresholds were tuned on its dev split
-only. Real accuracy on your feed will differ. Label real posts (below) to
-measure it properly.
+ONNX Runtime WebAssembly. Swapping models is a one-line change to `MODEL_ID` in
+[`src/config.ts`](src/config.ts); compare them with the eval script below.
 
 ## Evaluating on real posts
 
